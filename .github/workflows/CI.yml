@@ -11,7 +11,7 @@ jobs:
     steps:
 
       - name: Generate Test Report
-      uses: brpaz/godacov-action@v1
+        uses: brpaz/godacov-action@v1
         with:
           reportPath: 'Artifacts/coverage'
           codacyToken: ${{ secrets.CODACY_TOKEN }}
