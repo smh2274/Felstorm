@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Go Action
+      - name: Get Go Action
         uses: actions-contrib/go@v0.1.0
+
+      - name: Run Test
         run: echo 'The time was ${{ steps.hello.outputs.time }}.'
