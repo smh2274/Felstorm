@@ -10,8 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Get Go Action
-        uses: actions-contrib/go@v0.1.0
+      - name: Generate Test Report
+      uses: brpaz/godacov-action@v1
+        with:
+          reportPath: 'Artifacts/coverage'
+          codacyToken: ${{ secrets.CODACY_TOKEN }}
+          commitId: ${{ github.sha }}
 
-      - name: Run Test
+      - name: Get Spend Time
         run: echo 'The time was ${{ steps.hello.outputs.time }}.'
