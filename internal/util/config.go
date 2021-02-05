@@ -13,6 +13,8 @@ func LoadConfig() (*viper.Viper, error) {
 	config.AddConfigPath(".")
 	config.AddConfigPath("~/Azeroth/Felstorm/config")
 	config.AddConfigPath("/Azeroth/Felstorm/config")
+	//for run test
+	config.AddConfigPath("../../")
 	config.SetConfigName("felstorm_conf")
 	config.SetConfigType("yaml")
 

@@ -3,54 +3,63 @@ package test
 import (
 	"context"
 	jwt "github.com/smh2274/Felstorm/internal/api"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials"
+	"github.com/smh2274/Felstorm/internal/services"
+	"github.com/smh2274/Felstorm/internal/util"
+	"github.com/spf13/viper"
 	"log"
 	"testing"
 	"time"
 )
 
-var tokenClient jwt.TokenClient
-
+var v *viper.Viper
 func init() {
-	//初始化证书
-	creds, err := credentials.NewClientTLSFromFile("../ssl/domain.crt", "domain.com")
+	////初始化证书
+	//creds, err := credentials.NewClientTLSFromFile("../ssl/domain.crt", "domain.com")
+	//if err != nil {
+	//	log.Fatalf("failed to load credentials: %v", err)
+	//}
+	//
+	//// setup call options
+	//opts := []grpc.DialOption{
+	//	//grpc.WithTransportCredentials(creds),
+	//	grpc.WithInsecure(),
+	//}
+	//opts = append(opts, grpc.WithBlock())
+	//
+	//ctx, _ := context.WithTimeout(context.Background(), time.Second*15)
+	//
+	//connect, err := grpc.DialContext(ctx, "127.0.0.1:8800", grpc.WithTransportCredentials(creds))
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
+	//
+	//if connect == nil {
+	//	log.Fatal("connect init nil")
+	//}
+	//
+	//tokenClient = jwt.NewTokenClient(connect)
+
+	viper, err := util.LoadConfig()
 	if err != nil {
-		log.Fatalf("failed to load credentials: %v", err)
+		log.Print(err)
 	}
 
-	// setup call options
-	opts := []grpc.DialOption{
-		//grpc.WithTransportCredentials(creds),
-		grpc.WithInsecure(),
-	}
-	opts = append(opts, grpc.WithBlock())
-
-	ctx, _ := context.WithTimeout(context.Background(), time.Second*15)
-
-	connect, err := grpc.DialContext(ctx, "127.0.0.1:8800", grpc.WithTransportCredentials(creds))
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	if connect == nil {
-		log.Fatal("connect init nil")
-	}
-
-	tokenClient = jwt.NewTokenClient(connect)
+	v = viper
 }
 
 func TestFelStormServer(t *testing.T) {
-	ctx, _ := context.WithTimeout(context.Background(), time.Second*15)
+	server := new(services.GRPCTokenServer)
+	server.V = v
 
-	token, err := tokenClient.GetToken(ctx , &jwt.GetTokenRequest{
-		Audience:             "envoy_test",
+	ctx, _ := context.WithTimeout(context.Background(), 5 * time.Second)
+
+	res, err := server.GetToken(ctx, &jwt.GetTokenRequest{
+		Audience:             "test",
 		Exp:                  int64(time.Minute),
 	})
 	if err != nil {
-		t.Error(err)
+		t.Error(err.Error())
 	} else {
-		t.Log(token)
+		t.Logf("get token: %s", res.GetToken())
 	}
-
 }
