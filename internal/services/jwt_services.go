@@ -9,11 +9,13 @@ import (
 	"time"
 )
 
+// GRPCTokenServer 自定义token服务
 type GRPCTokenServer struct {
 	jwt2.TokenServer
 	V *viper.Viper
 }
 
+// GetToken 获取Token
 func (s *GRPCTokenServer) GetToken(ctx context.Context, in *jwt2.GetTokenRequest) (*jwt2.GetTokenResponse, error) {
 	claims := jwt.StandardClaims{
 		Audience:  in.Audience,

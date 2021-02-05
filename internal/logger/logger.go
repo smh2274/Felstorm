@@ -55,6 +55,7 @@ func getLogWriter(filename string, maxSize, maxBackup, maxAge int) zapcore.Write
 	return zapcore.AddSync(hook)
 }
 
+// RecordErr 记录错误日志
 func RecordErr(req interface{}, err error, desc ...string) {
 	var info string
 	if len(desc) > 0 {
