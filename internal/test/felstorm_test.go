@@ -12,6 +12,7 @@ import (
 )
 
 var v *viper.Viper
+
 func init() {
 	////初始化证书
 	//creds, err := credentials.NewClientTLSFromFile("../ssl/domain.crt", "domain.com")
@@ -51,11 +52,11 @@ func TestFelStormServer(t *testing.T) {
 	server := new(services.GRPCTokenServer)
 	server.V = v
 
-	ctx, _ := context.WithTimeout(context.Background(), 5 * time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
 
 	res, err := server.GetToken(ctx, &jwt.GetTokenRequest{
-		Audience:             "test",
-		Exp:                  int64(time.Minute),
+		Audience: "test",
+		Exp:      int64(time.Minute),
 	})
 	if err != nil {
 		t.Error(err.Error())

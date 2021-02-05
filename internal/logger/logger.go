@@ -61,6 +61,5 @@ func RecordErr(req interface{}, err error, desc ...string) {
 	if len(desc) > 0 {
 		info = desc[0] + ": "
 	}
-	zap.L().Error(fmt.Sprintf("%s request: %#v, err: %v",info, req, err.Error()))
+	zap.L().Error(fmt.Sprintf("%s request: %#v, err: %v", info, req, err.Error()))
 }
-
