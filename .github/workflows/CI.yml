@@ -1,14 +1,32 @@
-name: felstorm integration test on push
+name: felstorm integration test
 # This workflow is triggered on pushes to the repository.
-on: [push]
+on:
+  push:
+    branches: [ develop, main, master ]
+  pull_request:
+    branches: [ main, develop, master ]
+
+  workflow_dispatch:
 
 jobs:
-  build:
-    # Job name is Greeting
-    name: felstorm integration test
-    # This job runs on Linux
+  golangci:
+    name: check code
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
 
-      - name: Get Spend Time
-        run: echo 'The time was ${{ steps.hello.outputs.time }}.'
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.15
+
+      - name: Lint Go Code
+        run: |
+          export PATH=$PATH:$(go env GOPATH)/bin
+          go get -u golang.org/x/lint/golint
+          golint -set_exit_status ./...
+
+      - name: run tests
+        run: |
+          go run cmd/felstorm.go
+          go test -v github.com/smh2274/Felstorm/internal/test/... > test.json

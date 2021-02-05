@@ -1,0 +1,16 @@
+server:
+  address: 127.0.0.1
+  port: 8888
+jwt:
+  # aFlFR0prSXJiT1NYSHN3WXI1bDR2cHhhbWZlWGk4TkN4SlN4WVRtclVTNA==
+  key: hYEGJkIrbOSXHswYr5l4vpxamfeXi8NCxJSxYTmrUS4
+  issuer: Simon.Shi
+ssl:
+  key: /Azeroth/Felstorm/ssl/domain.key
+  cert: /Azeroth/Felstorm/ssl/domain.crt
+log:
+  file: /Azeroth/Felstorm/log/felstorm_err.log
+  level: error
+  maxSize: 128
+  maxAge: 7
+  maxBackups: 30
