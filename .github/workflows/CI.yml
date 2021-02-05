@@ -28,5 +28,4 @@ jobs:
 
       - name: run tests
         run: |
-          go run cmd/felstorm.go
           go test -v github.com/smh2274/Felstorm/internal/test/... > test.json
