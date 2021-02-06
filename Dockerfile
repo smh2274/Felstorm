@@ -10,11 +10,10 @@ WORKDIR /go/src/github.com/smh2274/Felstorm
 # 拷贝需要编译的文件
 COPY . /go/src/github.com/smh2274/Felstorm
 
-# 设置git的url，使其可以访问smh2274的私有仓库
-RUN git config --global url."https://058b9a7bee77a0e72d4d10dd270c21f03ba4d5ae:x-oauth-basic@github.com/".insteadOf "https://github.com/"
-
 # 编译
-RUN GO111MODULE=on CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GOROOT_FINAL=$(pwd) go build -a -ldflags '-w -extldflags "-static"'  -gcflags=-trimpath=$(pwd) -asmflags=-trimpath=$(pwd) cmd/felstorm.go
+RUN GO111MODULE=on CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GOROOT_FINAL=$(pwd) \
+  go build -a -ldflags '-w -extldflags "-static"'  \
+  -gcflags=-trimpath=$(pwd) -asmflags=-trimpath=$(pwd) cmd/felstorm.go
 
 # --- 构建运行环境 ---
 FROM envoyproxy/envoy-alpine:v1.17.0 AS prod
