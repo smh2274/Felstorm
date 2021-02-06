@@ -11,7 +11,7 @@ WORKDIR /go/src/github.com/smh2274/Felstorm
 COPY . /go/src/github.com/smh2274/Felstorm
 
 # 编译
-RUN GO111MODULE=on CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GOROOT_FINAL=$(pwd) \
+RUN GO111MODULE=on CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GOROOT_FINAL="$(pwd)" \
   go build -a -ldflags '-w -extldflags "-static"'  \
   -gcflags=-trimpath=$(pwd) -asmflags=-trimpath=$(pwd) cmd/felstorm.go
 
