@@ -10,18 +10,19 @@
 
 ### generate json web token with HS256
 
-*  step 1
+  * step 1
 > clone this repository && cd this project
  
-*  step 2
+  * step 2
 > docker network -d bridge $(your network)
 
-*  step 3
+  * step 3
 > docker build . -t felstorm
 
-*  step 3
+  * step 3
 > docker  run --name felstorm -v $(your log path):/Azeroth/Felstorm/log --network $(your network) --network-alias felstorm -p 8800:8800 -it -d felstorm
         
 #### configure self
-*  you could change felstorm_conf.yaml file
-*  if you want change access network gateway, you can do some change on envoy.yaml
+
+  * you could change felstorm_conf.yaml file
+  * if you want change access network gateway, you can do some change on envoy.yaml
