@@ -3,7 +3,7 @@ package services
 import (
 	"context"
 	"github.com/dgrijalva/jwt-go"
-	jwt2 "github.com/smh2274/Felstorm/internal/api"
+	jwt2 "github.com/smh2274/Felstorm/api"
 	"github.com/smh2274/Felstorm/internal/logger"
 	"github.com/spf13/viper"
 	"time"
