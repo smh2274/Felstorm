@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	jwt "github.com/smh2274/Felstorm/internal/api"
+	jwt "github.com/smh2274/Felstorm/api"
 	"github.com/smh2274/Felstorm/internal/logger"
 	"github.com/smh2274/Felstorm/internal/services"
 	"github.com/smh2274/Felstorm/internal/util"
